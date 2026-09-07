@@ -6,6 +6,7 @@
 
 A 2D computational fluid dynamics (CFD) investigation evaluating the aerodynamic behavior, boundary-layer development, and force characteristics of the **NACA 2418** cambered airfoil. The study examines both laminar and turbulent regimes across multiple angles of attack, performs a spatial grid independence analysis, and benchmarks numerical results against experimental wind tunnel data.
 
+> 📄 **[Read Full PDF Report](report/mechanical_fluid_2_project.pdf)**
 ---
 
 ## Technical Highlights
