@@ -73,14 +73,16 @@ A 2D computational fluid dynamics (CFD) investigation evaluating the aerodynamic
 ├── report/
 │   ├── fluid_2.tex                    # Formatted LaTeX source file
 │   └── mechanical_fluid_2_project.pdf # Compiled technical PDF report
-├── figures/                           # High-resolution simulation figures
+├── ├── figures/                           # High-resolution simulation figures
 │   ├── Picture1.png - Picture2.png    # Domain and near-wall mesh setup
-│   ├── Picture3.png - Picture6.png    # Residual and force convergence histories
+│   ├── Picture3.png - Picture4.png    # Medium mesh convergence histories
+│   ├── Picture5.png - Picture6.png    # Coarse mesh convergence histories
 │   ├── Picture7.png                   # NACA Report 824 reference polar
 │   ├── Picture8.png - Picture9.png    # Laminar vs. turbulent velocity contours
 │   ├── Picture10.png - Picture17.png  # Pressure, velocity, and vorticity contours
 │   ├── Picture18.png - Picture19.png  # Streamlines and pathlines
-│   └── Picture20.png - Picture21.png  # Chordwise Cp distributions
+│   ├── Picture20.png - Picture21.png  # Chordwise Cp distributions
+│   └── Picture22.png - Picture23.png  # Fine mesh convergence histories
 └── README.md
 ```
 
