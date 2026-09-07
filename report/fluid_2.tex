@@ -1,0 +1,507 @@
+\documentclass[12pt,a4paper]{article}
+
+% --- Essential Packages ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{geometry}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{titling}
+\usepackage[hidelinks]{hyperref}
+
+% --- Page Layout & Formatting ---
+\geometry{margin=1in}
+\setlength{\droptitle}{-4.5em}
+
+% --- Document Information ---
+\title{\textbf{Aerodynamic Analysis of an Airfoil}}
+\author{Sina Zerehposh}
+\date{Course Instructor: Dr. Kamran \\ 2025}
+
+\begin{document}
+
+\maketitle
+
+\section*{Project Specifications}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Airfoil Geometry} & \textbf{Angle of Attack 1} & \textbf{Angle of Attack 2} & \textbf{Laminar Flow ($Re$)} & \textbf{Turbulent Flow ($Re$)} \\
+\midrule
+NACA 2418 & $0^\circ$ & $8^\circ$ & $8 \times 10^4$ & $2.9 \times 10^6$ \\
+\bottomrule
+\end{tabular}
+\caption{Summary of project parameters}
+\label{tab:specs}
+\end{table}
+
+\section{Model Preparation for Simulation}
+
+The computational domain and mesh were prepared in ANSYS 2024 R1 around the NACA 2418 airfoil geometry, including a fine boundary-layer mesh near the airfoil surface to properly resolve the near-wall flow behavior.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.6\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Picture1.png}
+        \caption{Computational domain and mesh overview}
+        \label{fig:mesh_overview}
+    \end{subfigure}
+    
+    \vspace{0.4cm}
+    
+    \begin{subfigure}[b]{0.6\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Picture2.png}
+        \caption{Close-up view of the mesh around the airfoil}
+        \label{fig:mesh_closeup}
+    \end{subfigure}
+    \caption{Computational grid setup and boundary layer mesh topology around the NACA 2418 profile.}
+    \label{fig:mesh_setup}
+\end{figure}
+
+\section{Grid Independence / Reliability Study}
+
+To ensure the reliability of the results, the lift coefficient ($C_l$) and drag coefficient ($C_d$) were evaluated for three mesh densities: coarse, medium, and fine.
+
+\subsection{Medium Mesh}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.7\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Picture3.png}
+        \caption{Lift coefficient convergence history}
+        \label{fig:med_cl}
+    \end{subfigure}
+    
+    \vspace{0.3cm}
+    
+    \begin{subfigure}[b]{0.7\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Picture4.png}
+        \caption{Drag coefficient convergence history}
+        \label{fig:med_cd}
+    \end{subfigure}
+    \caption{Convergence history for the medium mesh configuration.}
+    \label{fig:med_mesh}
+\end{figure}
+
+\begin{align*}
+C_l &= 0.1880 \\
+C_d &= 1.07 \times 10^{-2}
+\end{align*}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ll}
+\toprule
+\textbf{Metric} & \textbf{Value} \\
+\midrule
+Nodes & 42{,}420 \\
+Elements & 42{,}000 \\
+\bottomrule
+\end{tabular}
+\caption{Medium mesh statistics}
+\label{tab:med_stat}
+\end{table}
+
+\subsection{Fine Mesh}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.7\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Picture22.png}
+        \caption{Lift coefficient convergence history}
+        \label{fig:fine_cl}
+    \end{subfigure}
+    
+    \vspace{0.3cm}
+    
+    \begin{subfigure}[b]{0.7\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Picture23.png}
+        \caption{Drag coefficient convergence history}
+        \label{fig:fine_cd}
+    \end{subfigure}
+    \caption{Convergence history for the fine mesh configuration.}
+    \label{fig:fine_mesh}
+\end{figure}
+
+\begin{align*}
+C_l &= 0.1859 \\
+C_d &= 1.08 \times 10^{-2}
+\end{align*}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ll}
+\toprule
+\textbf{Metric} & \textbf{Value} \\
+\midrule
+Nodes & 229{,}012 \\
+Elements & 228{,}000 \\
+\bottomrule
+\end{tabular}
+\caption{Fine mesh statistics}
+\label{tab:fine_stat}
+\end{table}
+
+\subsection{Coarse Mesh}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.7\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Picture6.png}
+        \caption{Lift coefficient convergence history}
+        \label{fig:coarse_cl}
+    \end{subfigure}
+    
+    \vspace{0.3cm}
+    
+    \begin{subfigure}[b]{0.7\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Picture5.png}
+        \caption{Drag coefficient convergence history}
+        \label{fig:coarse_cd}
+    \end{subfigure}
+    \caption{Convergence history for the coarse mesh configuration.}
+    \label{fig:coarse_mesh}
+\end{figure}
+
+\begin{align*}
+C_l &= 0.2020 \\
+C_d &= 1.06 \times 10^{-2}
+\end{align*}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ll}
+\toprule
+\textbf{Metric} & \textbf{Value} \\
+\midrule
+Nodes & 10{,}118 \\
+Elements & 9{,}900 \\
+\bottomrule
+\end{tabular}
+\caption{Coarse mesh statistics}
+\label{tab:coarse_stat}
+\end{table}
+
+\subsection{Summary and Mesh Selection}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lccc}
+\toprule
+\textbf{Parameter / Mesh Type} & \textbf{Coarse} & \textbf{Fine} & \textbf{Medium} \\
+\midrule
+$C_l$ & 0.2020 & 0.1859 & 0.1880 \\
+$C_d$ & $1.06 \times 10^{-2}$ & $1.08 \times 10^{-2}$ & $1.07 \times 10^{-2}$ \\
+\bottomrule
+\end{tabular}
+\caption{Comparison of results across mesh densities}
+\label{tab:mesh_comp}
+\end{table}
+
+Comparing the three meshing approaches reveals notable differences among the resulting coefficients. The coarse mesh, showing considerable deviation from the medium and fine mesh results, does not provide the required accuracy and reliability, and is therefore not a suitable choice.
+
+On the other hand, while the fine mesh offers the highest level of accuracy, it comes with challenges such as long computational time and high CPU demand, which limit its practical applicability.
+
+Given the above, the medium mesh emerges as the best option. This approach strikes a balance between adequate accuracy and reasonable computational time, offering an efficient and optimal solution. All subsequent simulations in this report therefore use the medium mesh.
+
+\section{Methodology Validation}
+
+The $C_l$ and $C_d$ values for the airfoil were obtained from the standard NACA 2418 experimental data tables (NACA Report No. 824) at the initial angle of attack ($0^\circ$, $Re = 2.9\times10^6$).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{Picture7.png}
+\caption{Aerodynamic characteristics of the NACA 2418 airfoil section (24-inch chord), from NACA Report No.\ 824.}
+\label{fig:naca_report}
+\end{figure}
+
+The comparison between the simulation results and the reference data is summarized below. As shown, the errors are small, indicating that the simulation was performed accurately.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lcc}
+\toprule
+\textbf{Data Source} & $C_d$ & $C_l$ \\
+\midrule
+Simulation & $1.07 \times 10^{-2}$ & 0.1880 \\
+Reference table & $1.1 \times 10^{-2}$ & 0.1 \\
+Relative error & 0.027 & 0.46 \\
+\bottomrule
+\end{tabular}
+\caption{Validation of simulation results against reference data}
+\label{tab:validation}
+\end{table}
+
+\section{Aerodynamic Performance Under Different Flight Conditions}
+
+By varying the Reynolds number and re-running the simulation for the laminar flow regime, the following results were obtained:
+
+\begin{align*}
+C_l &= 0.1118 \\
+C_d &= 0.0219
+\end{align*}
+
+It is observed that the drag coefficient increases while the lift coefficient decreases.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.7\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Picture8.png}
+        \caption{Laminar flow regime ($Re = 8 \times 10^4$)}
+        \label{fig:vel_laminar}
+    \end{subfigure}
+    
+    \vspace{0.4cm}
+    
+    \begin{subfigure}[b]{0.7\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Picture9.png}
+        \caption{Turbulent flow regime ($Re = 2.9 \times 10^6$)}
+        \label{fig:vel_turbulent}
+    \end{subfigure}
+    \caption{Comparison of velocity magnitude contours between laminar and turbulent flow regimes at $\alpha = 0^\circ$.}
+    \label{fig:regime_comparison}
+\end{figure}
+
+\subsection{Flow Analysis for the Two Regimes}
+
+When the flow regime around the airfoil transitions from turbulent to laminar, the reduced stability of the laminar flow causes the boundary layer to separate from the airfoil surface earlier. This premature separation leads to several adverse effects on airfoil performance:
+
+\begin{itemize}
+    \item \textbf{Increased pressure drag and drag coefficient:} Early boundary-layer separation substantially increases pressure drag and, consequently, the drag coefficient of the airfoil.
+    \item \textbf{Reduced lift force and lift coefficient:} Since a larger portion of the flow separates from the airfoil surface and no longer contributes to lift generation, the lift force -- and hence the lift coefficient -- decreases.
+    \item \textbf{Reduced flow velocity near the surface:} This change in flow regime is accompanied by a decrease in fluid velocity near the airfoil surface, which further intensifies the separation phenomenon.
+\end{itemize}
+
+Overall, the transition of the flow regime from turbulent to laminar around the airfoil, due to the effects described above, significantly degrades the aerodynamic performance of the airfoil.
+
+\section{In-Depth Analysis of Flow Physics}
+
+\subsection{Comparison of $C_l$ and $C_d$ at Two Different Angles of Attack}
+
+At the initial angle of attack of $0^\circ$:
+\begin{align*}
+C_l &= 0.1880 \\
+C_d &= 0.0107
+\end{align*}
+
+At the secondary angle of attack of $8^\circ$:
+\begin{align*}
+C_l &= 0.9349 \\
+C_d &= 0.0227
+\end{align*}
+
+Increasing the angle of attack from $0^\circ$ to $8^\circ$, while keeping other parameters such as Reynolds number and freestream velocity constant, leads to the following changes in the aerodynamic performance of the airfoil:
+
+\begin{itemize}
+    \item \textbf{Increased lift coefficient:} As the angle of attack increases, the component of the aerodynamic force perpendicular to the flow also increases. This means greater lift generation and, consequently, a higher lift coefficient.
+    \item \textbf{Increased drag coefficient:} Simultaneously with the increase in lift, the drag coefficient also rises. This is due to increased flow separation on the upper surface of the airfoil, which increases drag.
+    \item \textbf{Proximity to the stall point:} Although an angle of attack of $8^\circ$ still lies within the linear lift range, it is closer to the stall point, resulting in a more unsteady and turbulent flow.
+    \item \textbf{Overall performance improvement:} In general, the aerodynamic performance of the airfoil improves. However, this improvement continues only up to the point where the increase in drag does not cause a significant drop in the lift-to-drag ratio.
+\end{itemize}
+
+\subsection{Static Pressure Contours}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Picture10.png}
+        \caption{Angle of attack $\alpha = 0^\circ$}
+        \label{fig:p_stat_0}
+    \end{subfigure}
+    
+    \vspace{0.4cm}
+    
+    \begin{subfigure}[b]{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Picture11.png}
+        \caption{Angle of attack $\alpha = 8^\circ$}
+        \label{fig:p_stat_8}
+    \end{subfigure}
+    \caption{Static pressure field distributions at $0^\circ$ and $8^\circ$ angles of attack.}
+    \label{fig:static_pressure}
+\end{figure}
+
+\textbf{Analysis:}
+
+\textit{At $0^\circ$ angle of attack:} The static pressure distribution over the two airfoil surfaces is relatively symmetric. The pressure difference between the upper and lower surfaces is not substantial; only a slight decrease in pressure on the upper surface and a slight increase on the lower surface are observed. This condition indicates negligible or near-zero lift generation.
+
+\textit{At $8^\circ$ angle of attack:} With the increase in angle of attack to $8^\circ$, significant changes occur in the pressure contours. On the upper surface (the suction region), a considerable pressure decrease is observed, while the lower surface experiences a greater pressure increase. This growing pressure differential between the two surfaces directly leads to an increase in lift force.
+
+Additionally, at this higher angle of attack, the steeper pressure gradient on the upper surface may indicate the onset of partial flow separation. Although this phenomenon has not yet reached a critical stage at $8^\circ$, it suggests an increased likelihood of flow instability and proximity to stall conditions.
+
+\subsection{Dynamic Pressure Contours}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Picture12.png}
+        \caption{Angle of attack $\alpha = 0^\circ$}
+        \label{fig:p_dyn_0}
+    \end{subfigure}
+    
+    \vspace{0.4cm}
+    
+    \begin{subfigure}[b]{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Picture13.png}
+        \caption{Angle of attack $\alpha = 8^\circ$}
+        \label{fig:p_dyn_8}
+    \end{subfigure}
+    \caption{Dynamic pressure field distributions at $0^\circ$ and $8^\circ$ angles of attack.}
+    \label{fig:dynamic_pressure}
+\end{figure}
+
+\textbf{Analysis:}
+
+\textit{At $0^\circ$ angle of attack:} The dynamic pressure contour is uniform and nearly symmetric, indicating smooth, attached flow over the airfoil surface with no separation. The maximum dynamic pressure is observed near the leading edge and upper surface, but its magnitude is limited.
+
+\textit{At $8^\circ$ angle of attack:} With the increase in angle of attack to $8^\circ$, the dynamic pressure on the upper surface -- particularly near the leading edge -- shows a significant increase. This reflects a substantially higher velocity and stronger suction in this region, which contributes to lift generation.
+
+However, as the trailing portion of the upper surface is approached, a drop in dynamic pressure may indicate the onset of flow separation. Even if minor, this phenomenon can lead to flow instability and, ultimately, a reduction in airfoil efficiency.
+
+\subsection{Velocity Magnitude Contours}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Picture14.png}
+        \caption{Angle of attack $\alpha = 0^\circ$}
+        \label{fig:vel_0}
+    \end{subfigure}
+    
+    \vspace{0.4cm}
+    
+    \begin{subfigure}[b]{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Picture15.png}
+        \caption{Angle of attack $\alpha = 8^\circ$}
+        \label{fig:vel_8}
+    \end{subfigure}
+    \caption{Velocity magnitude field distributions at $0^\circ$ and $8^\circ$ angles of attack.}
+    \label{fig:velocity_contours}
+\end{figure}
+
+\textbf{Analysis:}
+
+\textit{At $0^\circ$ angle of attack:} The velocity magnitude contour is nearly symmetric and uniform, indicating that the flow remains well attached to the airfoil surface, with only a mild velocity increase on the upper surface. The flow is stable and orderly.
+
+\textit{At $8^\circ$ angle of attack:} With the angle of attack increased to $8^\circ$, noticeable changes occur in the velocity contour:
+\begin{itemize}
+    \item \textbf{Increased velocity on the upper surface:} The velocity on the upper airfoil surface, particularly near the leading edge, increases noticeably. This velocity increase is directly associated with the pressure drop and greater lift generation.
+    \item \textbf{Decreased velocity on the lower surface:} Simultaneously, the velocity on the lower surface of the airfoil decreases.
+    \item \textbf{Signs of flow separation:} In the trailing portion of the upper surface, regions of reduced velocity are observed, which may indicate the onset of flow separation. Although this phenomenon may be minor at this angle, it serves as a warning of possible instabilities at higher angles of attack.
+\end{itemize}
+
+\subsection{Vorticity Contours}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Picture16.png}
+        \caption{Angle of attack $\alpha = 0^\circ$}
+        \label{fig:vort_0}
+    \end{subfigure}
+    
+    \vspace{0.4cm}
+    
+    \begin{subfigure}[b]{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Picture17.png}
+        \caption{Angle of attack $\alpha = 8^\circ$}
+        \label{fig:vort_8}
+    \end{subfigure}
+    \caption{Vorticity distribution contours at $0^\circ$ and $8^\circ$ angles of attack.}
+    \label{fig:vorticity_contours}
+\end{figure}
+
+\textbf{Analysis:}
+
+\textit{At $0^\circ$ angle of attack:} The pressure and velocity distributions are balanced. Under these conditions, vorticity is also low, and the flow moves in a connected and stable manner over the airfoil surface. This condition reflects a smooth and efficient aerodynamic flow.
+
+\textit{At $8^\circ$ angle of attack:} In contrast, with the angle of attack increased to $8^\circ$, notable changes are observed in the flow parameters:
+\begin{itemize}
+    \item \textbf{Increased pressure difference:} The pressure difference between the two airfoil surfaces increases noticeably, which directly leads to greater lift generation.
+    \item \textbf{Increased velocity on the upper surface:} Velocity on the upper airfoil surface increases due to the Venturi effect and stronger suction in this region.
+    \item \textbf{Increased vorticity intensity:} Vorticity intensity also increases, indicating greater rotational motion and turbulence in the flow.
+    \item \textbf{Signs of separation and instability:} Signs of flow separation and instability become apparent at this angle, which can lead to reduced efficiency and proximity to the stall point.
+\end{itemize}
+
+\subsection{Streamlines}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Picture18.png}
+        \caption{Angle of attack $\alpha = 0^\circ$}
+        \label{fig:stream_0}
+    \end{subfigure}
+    
+    \vspace{0.4cm}
+    
+    \begin{subfigure}[b]{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Picture19.png}
+        \caption{Angle of attack $\alpha = 8^\circ$}
+        \label{fig:stream_8}
+    \end{subfigure}
+    \caption{Flow pathlines around the NACA 2418 airfoil at $0^\circ$ and $8^\circ$ angles of attack.}
+    \label{fig:streamlines}
+\end{figure}
+
+\textbf{Analysis:}
+
+\textit{At $0^\circ$ angle of attack:} The streamlines move smoothly, in an orderly fashion, and close to the airfoil surface. This condition indicates a fully attached and stable flow.
+
+\textit{At $8^\circ$ angle of attack:} In contrast, at $8^\circ$ angle of attack, the streamlines on the upper surface show a tendency to separate. This separation is especially evident in the rear half of the airfoil, with divergence or curvature of the streamlines visible in the trailing region. This behavior reflects greater flow instability and the potential formation of vortices, which can weaken the aerodynamic performance.
+
+\subsection{Pressure Coefficient ($C_p$) Plots}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.75\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Picture20.png}
+        \caption{Angle of attack $\alpha = 0^\circ$}
+        \label{fig:cp_0}
+    \end{subfigure}
+    
+    \vspace{0.4cm}
+    
+    \begin{subfigure}[b]{0.75\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Picture21.png}
+        \caption{Angle of attack $\alpha = 8^\circ$}
+        \label{fig:cp_8}
+    \end{subfigure}
+    \caption{Surface pressure coefficient ($C_p$) distribution along the chord.}
+    \label{fig:cp_plots}
+\end{figure}
+
+Examining these plots reveals key differences in the pressure distribution with changing angle of attack.
+
+\textit{At $0^\circ$ angle of attack:} The pressure difference between the two airfoil surfaces is relatively small, indicating minimal lift generation at this angle.
+
+\textit{At $8^\circ$ angle of attack:} In contrast, this pressure difference becomes considerably larger. In this case, the upper surface experiences much stronger suction, which is due to the increased flow velocity above the airfoil.
+
+\end{document}
