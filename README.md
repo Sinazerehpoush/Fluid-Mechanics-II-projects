@@ -82,3 +82,9 @@ A 2D computational fluid dynamics (CFD) investigation evaluating the aerodynamic
 │   ├── Picture18.png - Picture19.png  # Streamlines and pathlines
 │   └── Picture20.png - Picture21.png  # Chordwise Cp distributions
 └── README.md
+---
+
+## Author
+* **Sina Zerehposh**
+* Department of Mechanical Engineering, Sharif University of Technology
+* Course: Fluid Mechanics II (Instructor: Dr. Kamran)
