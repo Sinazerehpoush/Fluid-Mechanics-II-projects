@@ -13,7 +13,7 @@ A 2D computational fluid dynamics (CFD) investigation evaluating the aerodynamic
 ## Technical Highlights
 
 * **Spatial Convergence Verification:** Evaluated coarse (9.9k cells), medium (42k cells), and fine (228k cells) mesh resolutions to minimize numerical discretization errors.
-* **Empirical Validation:** Benchmarked computed coefficients against experimental wind tunnel data from **NACA Technical Report No. 824** ($Re = 2.9 \times 10^6, \, \alpha = 0^\circ$), yielding a drag coefficient discrepancy of **2.7%**.
+* **Empirical Validation:** Benchmarked computed coefficients against experimental wind tunnel data from **NACA Technical Report No. 824** ($Re = 2.9 \times 10^6, \ \alpha = 0^\circ$), yielding a drag coefficient discrepancy of **2.7%**.
 * **Flow Regime Sensitivity:** Analyzed aerodynamic performance degradation transitioning from turbulent ($Re = 2.9 \times 10^6$) to laminar flow ($Re = 8 \times 10^4$) caused by early boundary-layer separation.
 * **Flow Diagnostics:** Examined chordwise pressure distributions ($C_p$), static/dynamic pressure fields, velocity profiles, wall vorticity, and streamline separation at $\alpha = 0^\circ$ and $\alpha = 8^\circ$.
 
